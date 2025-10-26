@@ -28,7 +28,7 @@ class quantAirTools:
 
             data.timestamp_iso = pd.to_datetime(data.timestamp_iso,yearfirst=True)
             data['id'] = range(1, len(data) + 1)
-            data = data.add_suffix({dataset})
+            data = data.add_suffix(f'{dataset}')
             dataList.append(data)
             quantAirTools.dataLibrary[dataset] = data
         dataJoin = pd.concat(dataList, axis=1)
@@ -36,7 +36,7 @@ class quantAirTools:
         dataJoin.to_csv(outputfile)
         return outputfile
         
-quantAirTools.QAcleanToCSV('TestJoin.csv','TalbotColocateO1.csv','TalbotColocateO2.csv','TalbotColocateQA1.csv','TalbotColocateQA2.csv')
+
 
 class quantAirTools:
 
@@ -46,9 +46,10 @@ class quantAirTools:
         startTime = pd.to_datetime(startTime)
         endTime = pd.to_datetime(endTime)
         dataList = []
-        ydata = inputFile.filter(regex=f'^{var}')
+        ydata = inputFile(regex=f'^{var}')
         dataList.append(ydata)
         plt.plot(x=(range(startTime,endTime)),y=ydata)
         plt.show()
 
+quantAirTools.QAcleanToCSV('TestJoin.csv','TalbotColocateO1.csv','TalbotColocateO2.csv','TalbotColocateQA1.csv','TalbotColocateQA2.csv')
 quantAirTools.QAPlotter('TestJoin.csv','2025-10-7 17:23:00','2025-10-7 18:23:00','pm_25')
